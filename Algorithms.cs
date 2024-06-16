@@ -6,18 +6,9 @@ using System.Threading.Tasks;
 
 namespace SortingTask
 {
-    public class Algorithms 
+    public class Algorithm          
     {
 
-
-
-
-
-
-        public void MergeSort()
-        {
-
-        }
 
     }
 }
