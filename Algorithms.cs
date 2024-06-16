@@ -6,27 +6,18 @@ using System.Threading.Tasks;
 
 namespace SortingTask
 {
-    public class Algorithms : ISorts
+    public class Algorithms 
     {
-        /*
-         * Bubble sort will never be the fastest algorithm since it has to iterate through
-         * every 
-         * 
-         * 
-         */
-        public void BubbleSort()
-        {
 
-        }
 
-        public void QuickSort()
-        {
 
-        }
+
+
 
         public void MergeSort()
         {
 
         }
+
     }
 }
