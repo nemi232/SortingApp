@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SortingTask")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+309a2ccc1684d4e648f0cb477ef68da395387729")]
 [assembly: System.Reflection.AssemblyProductAttribute("SortingTask")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SortingTask")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

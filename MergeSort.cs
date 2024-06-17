@@ -4,124 +4,59 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SortingTask{
-    public class MergeSortAlgorithm{
-        static void MergeSort(int[] arr, int left, int right)
+namespace SortingTask
+{
+    public class MergeSortStrategy<T> : ISorts<T> where T : IComparable<T>
     {
-        if (left < right)
-        {
-            int middle = (left + right) / 2;
+       public List<T> Sort(List<T> data)
+    {
+        if (data.Count <= 1)
+            return data;
 
-            MergeSort(arr, left, middle);
-            MergeSort(arr, middle + 1, right);
+        int m = data.Count / 2;
+        List<T> l = data.GetRange(0, m);
+        List<T> r = data.GetRange(m, data.Count - m);
 
-            Merge(arr, left, middle, right);
-        }
+        l = Sort(l);
+        r = Sort(r);
+
+        return Merge(l, r);
     }
 
-    static void Merge(int[] arr, int left, int middle, int right)
+    private List<T> Merge(List<T> l, List<T> r)
     {
-        int n1 = middle - left + 1;
-        int n2 = right - middle;
+        List<T> merged = new List<T>();
+        int leftIndex = 0, rightIndex = 0;
 
-        int[] L = new int[n1];
-        int[] R = new int[n2];
-
-        for (int i = 0; i < n1; i++)
-            L[i] = arr[left + i];
-        for (int j = 0; j < n2; j++)
-            R[j] = arr[middle + 1 + j];
-
-        int iL = 0, iR = 0;
-        int k = left;
-
-        while (iL < n1 && iR < n2)
+        while (leftIndex < l.Count && rightIndex < r.Count)
         {
-            if (L[iL] <= R[iR])
+            if (l[leftIndex].CompareTo(r[rightIndex]) <= 0)
             {
-                arr[k] = L[iL];
-                iL++;
+                merged.Add(l[leftIndex]);
+                leftIndex++;
             }
             else
             {
-                arr[k] = R[iR];
-                iR++;
+                merged.Add(r[rightIndex]);
+                rightIndex++;
             }
-            k++;
         }
 
-        while (iL < n1)
+        while (leftIndex < l.Count)
         {
-            arr[k] = L[iL];
-            iL++;
-            k++;
+            merged.Add(l[leftIndex]);
+            leftIndex++;
         }
 
-        while (iR < n2)
+        while (rightIndex < r.Count)
         {
-            arr[k] = R[iR];
-            iR++;
-            k++;
+            merged.Add(r[rightIndex]);
+            rightIndex++;
         }
-    }
-    static void MergeSort(string[] arr, int left, int right)
-{
-    if (left < right)
-    {
-        int middle = (left + right) / 2;
 
-        MergeSort(arr, left, middle);
-        MergeSort(arr, middle + 1, right);
-
-        Merge(arr, left, middle, right);
-    }
-}
-
-static void Merge(string[] arr, int left, int middle, int right)
-{
-    int n1 = middle - left + 1;
-    int n2 = right - middle;
-
-    string[] L = new string[n1];
-    string[] R = new string[n2];
-
-    for (int i = 0; i < n1; i++)
-        L[i] = arr[left + i];
-    for (int j = 0; j < n2; j++)
-        R[j] = arr[middle + 1 + j];
-
-    int iL = 0, iR = 0;
-    int k = left;
-
-    while (iL < n1 && iR < n2)
-    {
-        if (L[iL].CompareTo(R[iR]) <= 0)
-        {
-            arr[k] = L[iL];
-            iL++;
-        }
-        else
-        {
-            arr[k] = R[iR];
-            iR++;
-        }
-        k++;
+        return merged;
     }
 
-    while (iL < n1)
-    {
-        arr[k] = L[iL];
-        iL++;
-        k++;
-    }
 
-    while (iR < n2)
-    {
-        arr[k] = R[iR];
-        iR++;
-        k++;
-    }
-}
+    }}
 
-    }
-}

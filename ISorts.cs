@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace SortingTask
 {
-    public interface ISorts
+    public interface ISorts<T>
     {
-        void BubbleSort(int[] arr);
-        void QuickSort(int[] arr, int low, int high);
-
-        void MergeSort();
+        List<T> Sort(List<T> data);
     }
 }
