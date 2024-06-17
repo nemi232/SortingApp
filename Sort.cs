@@ -1,14 +1,27 @@
 ﻿using System;
 using System.Diagnostics;
 
+
+/**
+ * BubbleSort sortuje każdy element osobno. To przy dużych setach danych może sprawia, że jest on bardzo niewydajny.
+ * 
+ * QuickSort wybiera jeden element jako pivot i rozdziela array dookoła niego przestawiając pivot
+ * na właściwe posortowane miejsce. Nie jest to najlepszy wybór na mniejsze sety danych, jednak radzi sobie świetnie 
+ * przy większych plikach. 
+ * 
+ * 
+ * Merge Sort dzieli dane na mniejsze części do momentu kiedy nie mogą zostać podzielone. Potem łączy je ze sobą 
+ * w jedną posortowaną array. Działa dobrze przy mniejszych jak i większych setach danych. 
+ */
 namespace SortingTask
 {
     public class Sort
     {
         public static void Main(String[] args)
         {
+            
 
-            string filePath = "C:\\Users\\Xopero\\SortingApp\\text3.txt";
+            //  string filePath = "C:\Users\Xopero\SortingApp\TestFiles\text1.txt";
 
             Console.WriteLine("Choose sorting algorithm:");
             Console.WriteLine("1. Bubblesort");
@@ -17,6 +30,7 @@ namespace SortingTask
             Console.Write("Enter your choice (1-3): ");
 
             int choice;
+
             choice = Convert.ToInt16(Console.ReadLine());
 
             ISorts<string> sortStrategy = null;
@@ -24,15 +38,15 @@ namespace SortingTask
             //strategy choice
             if (choice == 1)
             {
-                sortStrategy = new BubblesortStrategy<string>();
+                sortStrategy = new Bubblesort<string>();
             }
             else if (choice == 2)
             {
-                sortStrategy = new QuickSortStrategy<string>();
+                sortStrategy = new QuickSort<string>();
             }
             else if (choice == 3)
             {
-                sortStrategy = new MergeSortStrategy<string>();
+                sortStrategy = new MergeSort<string>();
 
             }
             else
@@ -42,10 +56,15 @@ namespace SortingTask
 
             var sortContext = new Context<string>(sortStrategy);
 
+            Console.WriteLine("Enter a file path of a file you want to sort: ");
+            string filePath = Console.ReadLine();
+
             // Sort the lines
             try
             {
+                
                 Stopwatch stopwatch = new Stopwatch();
+
                 List<string> lines = new List<string>(File.ReadAllLines(filePath));
                 int count = 0;
                 Console.WriteLine("Sorted file:");
@@ -75,10 +94,6 @@ namespace SortingTask
             catch (Exception ex)
             {
                 Console.WriteLine($"Error: {ex.Message}");
-            }
-            finally
-            {
-                Console.WriteLine("All elements have been sorted");
             }
 
 

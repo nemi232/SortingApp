@@ -6,21 +6,22 @@ using System.Threading.Tasks;
 
 namespace SortingTask
 {
-    public class MergeSortStrategy<T> : ISorts<T> where T : IComparable<T>
+    //divide and conquer 
+    public class MergeSort<T> : ISorts<T> where T : IComparable<T>
     {
        public List<T> Sort(List<T> data)
     {
         if (data.Count <= 1)
             return data;
 
-        int m = data.Count / 2;
-        List<T> l = data.GetRange(0, m);
-        List<T> r = data.GetRange(m, data.Count - m);
+        int middle = data.Count / 2;
+        List<T> left = data.GetRange(0, middle);
+        List<T> right = data.GetRange(middle, data.Count - middle);
 
-        l = Sort(l);
-        r = Sort(r);
+        left = Sort(left);
+        right = Sort(right);
 
-        return Merge(l, r);
+        return Merge(left, right);
     }
 
     private List<T> Merge(List<T> l, List<T> r)
@@ -58,5 +59,6 @@ namespace SortingTask
     }
 
 
-    }}
+    }
+}
 
