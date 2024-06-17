@@ -1,7 +1,7 @@
 
 using System;
 
-// Strategia 
+// Zastosowanie wzorca Strategia 
 using SortingTask;
 
 public class Context<T> 
