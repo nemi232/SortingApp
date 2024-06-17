@@ -1,0 +1,202 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+
+// Interfejs strategii sortowania
+public interface ISortStrategy<T> where T : IComparable<T>
+{
+    List<T> Sort(List<T> data);
+}
+
+// Implementacja strategii Bubblesort
+public class BubblesortStrategy<T> : ISortStrategy<T> where T : IComparable<T>
+{
+    public List<T> Sort(List<T> data)
+    {
+        for (int i = 0; i < data.Count - 1; i++)
+        {
+            for (int j = 0; j < data.Count - 1 - i; j++)
+            {
+                if (data[j].CompareTo(data[j + 1]) > 0)
+                {
+                    T temp = data[j];
+                    data[j] = data[j + 1];
+                    data[j + 1] = temp;
+                }
+            }
+        }
+        return data;
+    }
+}
+
+// Implementacja strategii Quicksort
+public class QuicksortStrategy<T> : ISortStrategy<T> where T : IComparable<T>
+{
+    public List<T> Sort(List<T> data)
+    {
+        if (data.Count <= 1)
+            return data;
+
+        T pivot = data[data.Count / 2];
+        List<T> left = new List<T>();
+        List<T> middle = new List<T>();
+        List<T> right = new List<T>();
+
+        foreach (T item in data)
+        {
+            if (item.CompareTo(pivot) < 0)
+                left.Add(item);
+            else if (item.CompareTo(pivot) > 0)
+                right.Add(item);
+            else
+                middle.Add(item);
+        }
+
+        left = Sort(left);
+        right = Sort(right);
+
+        List<T> sortedData = new List<T>();
+        sortedData.AddRange(left);
+        sortedData.AddRange(middle);
+        sortedData.AddRange(right);
+
+        return sortedData;
+    }
+}
+
+// Implementacja strategii Mergesort
+public class MergesortStrategy<T> : ISortStrategy<T> where T : IComparable<T>
+{
+    public List<T> Sort(List<T> data)
+    {
+        if (data.Count <= 1)
+            return data;
+
+        int middle = data.Count / 2;
+        List<T> left = data.GetRange(0, middle);
+        List<T> right = data.GetRange(middle, data.Count - middle);
+
+        left = Sort(left);
+        right = Sort(right);
+
+        return Merge(left, right);
+    }
+
+    private List<T> Merge(List<T> left, List<T> right)
+    {
+        List<T> merged = new List<T>();
+        int leftIndex = 0, rightIndex = 0;
+
+        while (leftIndex < left.Count && rightIndex < right.Count)
+        {
+            if (left[leftIndex].CompareTo(right[rightIndex]) <= 0)
+            {
+                merged.Add(left[leftIndex]);
+                leftIndex++;
+            }
+            else
+            {
+                merged.Add(right[rightIndex]);
+                rightIndex++;
+            }
+        }
+
+        while (leftIndex < left.Count)
+        {
+            merged.Add(left[leftIndex]);
+            leftIndex++;
+        }
+
+        while (rightIndex < right.Count)
+        {
+            merged.Add(right[rightIndex]);
+            rightIndex++;
+        }
+
+        return merged;
+    }
+}
+
+// Klasa główna programu
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Podaj nazwę pliku do posortowania: ");
+        string filename = Console.ReadLine().Trim();
+
+        List<string> data = ReadFile(filename);
+        if (data == null)
+        {
+            Console.WriteLine("Plik jest pusty lub nie istnieje.");
+            return;
+        }
+
+        string dataType = DetermineDataType(data);
+
+        Dictionary<string, ISortStrategy<string>> strategies = new Dictionary<string, ISortStrategy<string>>();
+        strategies.Add("bubblesort", new BubblesortStrategy<string>());
+        strategies.Add("quicksort", new QuicksortStrategy<string>());
+        strategies.Add("mergesort", new MergesortStrategy<string>());
+
+        Console.WriteLine("Dostępne metody sortowania:");
+        foreach (string key in strategies.Keys)
+        {
+            Console.WriteLine(key);
+        }
+
+        Console.Write("Wybierz metodę sortowania: ");
+        string method = Console.ReadLine().Trim().ToLower();
+
+        if (strategies.ContainsKey(method))
+        {
+            List<string> sortedData = strategies[method].Sort(data);
+            Console.WriteLine("Posortowane dane:");
+            foreach (string item in sortedData)
+            {
+                Console.WriteLine(item);
+            }
+        }
+        else
+        {
+            Console.WriteLine("Nieprawidłowa metoda sortowania.");
+        }
+    }
+
+    // Metoda do wczytywania danych z pliku
+    static List<string> ReadFile(string filename)
+    {
+        try
+        {
+            List<string> lines = new List<string>();
+            using (StreamReader reader = new StreamReader(filename))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    lines.Add(line);
+                }
+            }
+            return lines;
+        }
+        catch (IOException)
+        {
+            return null;
+        }
+    }
+
+    // Metoda do określenia typu danych (liczby / tekst)
+    static string DetermineDataType(List<string> data)
+    {
+        bool isNumeric = true;
+        foreach (string item in data)
+        {
+            if (!int.TryParse(item, out _))
+            {
+                isNumeric = false;
+                break;
+            }
+        }
+        return isNumeric ? "numeric" : "text";
+    }
+}

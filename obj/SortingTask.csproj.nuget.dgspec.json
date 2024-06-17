@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Xopero\\SortingTask\\SortingTask.csproj": {}
+    "C:\\Users\\Xopero\\SortingApp\\SortingTask.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Xopero\\SortingTask\\SortingTask.csproj": {
+    "C:\\Users\\Xopero\\SortingApp\\SortingTask.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Xopero\\SortingTask\\SortingTask.csproj",
+        "projectUniqueName": "C:\\Users\\Xopero\\SortingApp\\SortingTask.csproj",
         "projectName": "SortingTask",
-        "projectPath": "C:\\Users\\Xopero\\SortingTask\\SortingTask.csproj",
+        "projectPath": "C:\\Users\\Xopero\\SortingApp\\SortingTask.csproj",
         "packagesPath": "C:\\Users\\Xopero\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Xopero\\SortingTask\\obj\\",
+        "outputPath": "C:\\Users\\Xopero\\SortingApp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
