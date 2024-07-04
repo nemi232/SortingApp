@@ -1,3 +1,8 @@
 ## SortingApp
 
-Aplikacja sortująca liczby rosnąco lub tekst alfabetycznie. Bazuje na wzorcu projektowym strategia.  
+Sorting app basing on a strategy pattern. 
+
+Uses three sorting algorithms: 
+- BubbleSort
+- QuickSort
+- MergeSort
