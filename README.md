@@ -1,4 +1,4 @@
-## SortingApp
+## Sorting Algorigthms
 
 Sorting app basing on a strategy pattern. 
 
